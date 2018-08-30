@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import reorderPoint from '../actions/reorderPoint';
+import {reorderPoint} from '../actions/index';
 import Point from './Point';
 
 class List extends Component {
@@ -12,9 +12,7 @@ class List extends Component {
 	}
 
 	onSortEnd = (oldIndex, newIndex) => {
-		const {reorderPoint} = this.props;
-		
-		reorderPoint(oldIndex, newIndex);
+		this.props.reorderPoint(oldIndex, newIndex);
 	}
 
 	render() {
@@ -27,7 +25,7 @@ class List extends Component {
 		);
 
 		const SortableList = SortableContainer(({items}) => 
-		   <ul className = 'point-list'>
+		   <ul className = 'list'>
 		     {items}
 		   </ul>
 		);

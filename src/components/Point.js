@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import deletePoint from '../actions/deletePoint';
+import {deletePoint} from '../actions/index';
 
 class Point extends Component {
 	static propTypes = {
@@ -18,10 +18,10 @@ class Point extends Component {
 		const {point} = this.props;
 
 		return (
-			<li>
-				<p className = 'point__name'>{point.name}</p>
+			<li className = 'item'>
+				<p className = 'item__name'>{point.name}</p>
 				<button 
-					className = 'point__delete' 
+					className = 'item__delete' 
 					type = 'button' 
 					onClick = {this.onDeleteBtnClick}
 				>Delete</button>
