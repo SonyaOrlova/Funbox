@@ -21,12 +21,17 @@ class YaMap extends Component {
     this.props.updatePoint(id, newCoords);
   }
 
-  mapZoom = () => {
+  setMapBounds = () => {
     const bounds = this.myMap.geoObjects.getBounds();
 
     this.myMap.setBounds(bounds, {checkZoomRange: true})
     .then(() => {if (this.myMap.getZoom() > 10) this.myMap.setZoom(10)});
-  } // auto-positioning 
+  } //  map zooming
+
+  componentDidUpdate(prevProps) {
+    if (this.props.points.length > 1 && prevProps.points.length !== this.props.points.length) 
+      this.setMapBounds();
+  }
 
   render() {
     const {points, mapCenterCoords} = this.props;
@@ -43,7 +48,6 @@ class YaMap extends Component {
         geometry = {{coordinates: point.coords}}
         properties = {{balloonContent: point.name}}
         options = {{iconColor: '#072f18', draggable: true}}
-        onMapChange = {this.mapZoom}
         onGeometryChange = {evt => {
           const newCoords = evt.get('target').geometry.getCoordinates();
           return this.onPlacemarkDrag(point.id, newCoords);

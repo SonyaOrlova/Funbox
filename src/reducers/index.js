@@ -2,12 +2,12 @@ import {combineReducers} from 'redux';
 import {arrayMove} from 'react-sortable-hoc';
 
 const points = (state = [], action) => {
-	const {type, payload} = action;
+	const {type, payload, uniqueId} = action; // gets uniqueId from the middleware
 
 	switch (type) {
 		case 'ADD_POINT':
 			const newPoint = payload;
-			return [...state, newPoint]; // gets point id from middleware
+			return [...state, {...newPoint, id: uniqueId}]; 
 
 		case 'DELETE_POINT':
 			const deletedPointId = payload;
@@ -16,7 +16,7 @@ const points = (state = [], action) => {
 		case 'REORDER_POINT':
 			const oldIndex = payload.oldIndex;
 			const newIndex = payload.newIndex;
-			return arrayMove(state, oldIndex, newIndex);
+			return arrayMove([...state], oldIndex, newIndex);
 
 		case 'UPDATE_POINT':
 			const updatedPointId = payload.id;

@@ -1,8 +1,8 @@
 export const addPoint = (point) => {
 	return {
 		type: 'ADD_POINT',
-		payload: {...point},
-		generateId: true,
+		payload: point,
+		generateId: true
 	}
 };
 
