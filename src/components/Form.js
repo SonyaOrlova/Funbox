@@ -32,7 +32,7 @@ class Input extends Component {
 			alert('Point name already exists');
 		}
 
-    else {addPoint({name, coords});}
+		else {addPoint({name, coords});}
 
 		this.setState({pointName: ''});
 	}
@@ -42,24 +42,24 @@ class Input extends Component {
 			<form 
 				className = 'form'
 				onSubmit = {this.onSubmitForm}
-			>
+				>
 				<input 
 					className = 'form__input' 
 					type = 'text' 
 					placeholder = 'Enter point name'
 					value = {this.state.pointName}
-					onChange = 	{this.onInputChange}
+					onChange = {this.onInputChange}
 				/>
 			</form>
-		);
+			);
 	}
 };
 
 const mapStateToProps = state => {
-  return {
-  	points: state.points,
-    mapCenterCoords: state.mapCenterCoords
-  };
+	return {
+		points: state.points,
+		mapCenterCoords: state.mapCenterCoords
+	};
 };
 
 

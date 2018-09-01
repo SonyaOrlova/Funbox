@@ -26,7 +26,7 @@ class Point extends Component {
 					onClick = {this.onDeleteBtnClick}
 				>Delete</button>
 			</li>
-		);
+			);
 	}
 };
 

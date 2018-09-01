@@ -1,3 +1,4 @@
+import {DEFAULT_MAP_CENTER_COORDS} from '../constants';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {YMaps, Map, Placemark, Polyline} from 'react-yandex-maps';
@@ -11,7 +12,7 @@ class YaMap extends Component {
     mapCenterCoords: PropTypes.array,
     getMapCenterCoords: PropTypes.func,
     updatePoint: PropTypes.func
-	}
+  }
 
   onMapDrag = () => {
     this.props.getMapCenterCoords(this.myMap.getCenter());
@@ -21,16 +22,14 @@ class YaMap extends Component {
     this.props.updatePoint(id, newCoords);
   }
 
-  setMapBounds = () => {
-    const bounds = this.myMap.geoObjects.getBounds();
-
-    this.myMap.setBounds(bounds, {checkZoomRange: true})
-    .then(() => {if (this.myMap.getZoom() > 10) this.myMap.setZoom(10)});
-  } //  map zooming
-
   componentDidUpdate(prevProps) {
-    if (this.props.points.length > 1 && prevProps.points.length !== this.props.points.length) 
-      this.setMapBounds();
+    if (this.props.points.length > 1 && prevProps.points.length !== this.props.points.length) {
+      const bounds = this.myMap.geoObjects.getBounds();
+      this.myMap.setBounds(bounds);
+    } // map auto-positioning
+
+    if (this.props.points.length === 0 && prevProps.points.length !== 0)
+      this.myMap.setCenter(DEFAULT_MAP_CENTER_COORDS, 10, {duration: 500}); // default map center when there are no points
   }
 
   render() {
@@ -53,21 +52,21 @@ class YaMap extends Component {
           return this.onPlacemarkDrag(point.id, newCoords);
         }}
       />
-    );
+      );
 
     const polyline = 
-      <Polyline 
-        geometry = {{coordinates: points.map(point => point.coords)}} 
-        options = {{strokeColor: '#6a7a00', strokeWidth: 2}}
-      />;
+    <Polyline 
+      geometry = {{coordinates: points.map(point => point.coords)}} 
+      options = {{strokeColor: '#6a7a00', strokeWidth: 2}}
+    />;
 
-  	return (
-  		<YMaps>
-  			<div id = 'map' className = 'map'>
+    return (
+      <YMaps>
+        <div id = 'map' className = 'map'>
           <Map 
             width = {'100%'} height = {'100%'}
-	          state = {mapState} 
-	          instanceRef = {elem => this.myMap = elem}
+            state = {mapState} 
+            instanceRef = {elem => this.myMap = elem}
             onBoundsChange = {this.onMapDrag}
           >
             {placemarks}

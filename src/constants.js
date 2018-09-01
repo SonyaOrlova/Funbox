@@ -1,0 +1,1 @@
+export const DEFAULT_MAP_CENTER_COORDS = [55.76, 37.64]; // Moscow

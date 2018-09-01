@@ -1,3 +1,4 @@
+import {DEFAULT_MAP_CENTER_COORDS} from '../constants';
 import {combineReducers} from 'redux';
 import {arrayMove} from 'react-sortable-hoc';
 
@@ -28,7 +29,7 @@ const points = (state = [], action) => {
 	}
 };
 
-const mapCenterCoords = (state = [55.76, 37.64], action) => {
+const mapCenterCoords = (state = DEFAULT_MAP_CENTER_COORDS, action) => {
 	const {type, payload} = action;
 
 	switch (type) {

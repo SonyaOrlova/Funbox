@@ -19,16 +19,16 @@ class List extends Component {
 		const {points} = this.props;
 
 		const SortableItem = SortableElement(({point}) =>
-		  <Point
+			<Point
 				point = {point}
 			/>
-		);
+			);
 
 		const SortableList = SortableContainer(({items}) => 
-		   <ul className = 'list'>
-		     {items}
-		   </ul>
-		);
+			<ul className = 'list'>
+				{items}
+			</ul>
+			);
 
 		const items = [...points].map((point, index) => 
 			<SortableItem 
@@ -36,18 +36,21 @@ class List extends Component {
 				index = {index}
 				point = {point}
 			/>
-		);
+			);
 
 		return (
-			<SortableList items = {items} onSortEnd = {this.onSortEnd} />
+			<SortableList 
+				items = {items} 
+				onSortEnd = {this.onSortEnd} 
+			/>
 		);
 	}
 };
 
 const mapStateToProps = state => {
-  return {
-    points: state.points
-  };
+	return {
+		points: state.points
+	};
 };
 
 export default connect(mapStateToProps, {reorderPoint})(List);

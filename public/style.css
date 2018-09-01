@@ -106,9 +106,11 @@ a {
   width: 90%;
 
   margin: 0;
-  padding: 3px;
+  padding: 3px 10px 3px 3px;
 
   border-bottom: 1px solid rgba(0,0,0,0.05);
+
+  word-wrap: break-word;
 }
 
 .item__delete {
