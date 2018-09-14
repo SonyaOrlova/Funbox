@@ -28,7 +28,7 @@ class App extends Component {
           <div className = 'footer__wrapper'>
             <div className = 'footer__contacts'>
               <a className = 'social__link social__link--mail' href='mailto:sonya5488@yandex.ru'>
-                <img src = 'images/mail.png' width = '35' height = '35' alt = 'Почта Орловой С.' />
+                <img src = 'images/mark-mail.png' width = '35' height = '35' alt = 'Почта Орловой С.' />
               </a>
               <a className = 'social__link social__link--github' href = 'https://github.com/SonyaOrlova'>
                 <img src = 'images/mark-github.png' width = '35' height = '35' alt = 'Логотип Github' />

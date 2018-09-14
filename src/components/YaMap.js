@@ -1,36 +1,43 @@
-import {DEFAULT_MAP_CENTER_COORDS} from '../constants';
+// import {DEFAULT_MAP_CENTER_COORDS} from '../helpers/constants';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {YMaps, Map, Placemark, Polyline} from 'react-yandex-maps';
 import {connect} from 'react-redux';
-import {getMapCenterCoords} from '../actions/index';
-import {updatePoint} from '../actions/index';
+import {setMapCenterCoords} from '../actions/index';
+import {updatePointCoords} from '../actions/index';
 
-class YaMap extends Component {
+export class YaMap extends Component {
 	static propTypes = {
     points: PropTypes.array.isRequired,
     mapCenterCoords: PropTypes.array,
-    getMapCenterCoords: PropTypes.func,
-    updatePoint: PropTypes.func
+    setMapCenterCoords: PropTypes.func,
+    updatePointCoords: PropTypes.func
   }
 
-  onMapDrag = () => {
-    this.props.getMapCenterCoords(this.myMap.getCenter());
+  onMapDrag = (newMapCenterCoords) => {
+    this.props.setMapCenterCoords(newMapCenterCoords);
   }
 
-  onPlacemarkDrag = (id, newCoords) => {
-    this.props.updatePoint(id, newCoords);
+  onPlacemarkDrag = (id, newPointCoords) => {
+    this.props.updatePointCoords(id, newPointCoords);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.points.length > 1 && prevProps.points.length !== this.props.points.length) {
-      const bounds = this.myMap.geoObjects.getBounds();
-      this.myMap.setBounds(bounds);
-    } // map auto-positioning
+  // componentDidUpdate(prevProps) {
+  //   const {points} = this.props;
+  //   const prevPoints = prevProps.points;
 
-    if (this.props.points.length === 0 && prevProps.points.length !== 0)
-      this.myMap.setCenter(DEFAULT_MAP_CENTER_COORDS, 10, {duration: 500}); // default map center when there are no points
-  }
+  //   if (points.length === 0 && prevPoints.length !== 0) {
+  //     this.myMap.setCenter(DEFAULT_MAP_CENTER_COORDS, 10, {duration: 500}); 
+  //   } // default map center when there are no placemarks
+
+  //   if (points.length === 1 && prevPoints.length !== points.length) {
+  //     this.myMap.setCenter(points[0].coords, 10, {duration: 500});
+  //   } // map auto-positioning for 1 placemark
+
+  //   if (points.length > 1 && prevPoints.length !== points.length) {
+  //     this.myMap.setBounds(this.myMap.geoObjects.getBounds(), {duration: 500, checkZoomRange:true});
+  //   } // map auto-positioning for several placemarks
+  // }
 
   render() {
     const {points, mapCenterCoords} = this.props;
@@ -48,11 +55,12 @@ class YaMap extends Component {
         properties = {{balloonContent: point.name}}
         options = {{iconColor: '#072f18', draggable: true}}
         onGeometryChange = {evt => {
-          const newCoords = evt.get('target').geometry.getCoordinates();
-          return this.onPlacemarkDrag(point.id, newCoords);
+          evt.stopPropagation();
+          const newPointCoords = evt.originalEvent.target.geometry.getCoordinates();
+          this.onPlacemarkDrag(point.id, newPointCoords);
         }}
       />
-      );
+    );
 
     const polyline = 
     <Polyline 
@@ -66,8 +74,11 @@ class YaMap extends Component {
           <Map 
             width = {'100%'} height = {'100%'}
             state = {mapState} 
-            instanceRef = {elem => this.myMap = elem}
-            onBoundsChange = {this.onMapDrag}
+            // instanceRef = {elem => this.myMap = elem}
+            onBoundsChange = {evt => {
+              const newMapCenterCoords = evt.originalEvent.target.getCenter();
+              this.onMapDrag(newMapCenterCoords)
+            }}
           >
             {placemarks}
             {polyline}
@@ -85,4 +96,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {getMapCenterCoords, updatePoint})(YaMap);
+export default connect(mapStateToProps, {setMapCenterCoords, updatePointCoords})(YaMap);

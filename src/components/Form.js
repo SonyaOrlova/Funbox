@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {addPoint} from '../actions/index';
 
-class Input extends Component {
+export class Form extends Component {
 	static propTypes = {
 		points: PropTypes.array.isRequired,
 		mapCenterCoords: PropTypes.array,
@@ -24,7 +24,7 @@ class Input extends Component {
 		const name = this.state.pointName;
 		const coords = this.props.mapCenterCoords;
 
-		if (this.state.pointName.trim() === '') {
+		if (name.trim() === '') {
 			alert('Point name should not be empty');
 		}
 
@@ -42,7 +42,7 @@ class Input extends Component {
 			<form 
 				className = 'form'
 				onSubmit = {this.onSubmitForm}
-				>
+			>
 				<input 
 					className = 'form__input' 
 					type = 'text' 
@@ -50,6 +50,7 @@ class Input extends Component {
 					value = {this.state.pointName}
 					onChange = {this.onInputChange}
 				/>
+				<span className = 'form__input-border'></span>
 			</form>
 			);
 	}
@@ -62,5 +63,4 @@ const mapStateToProps = state => {
 	};
 };
 
-
-export default connect(mapStateToProps, {addPoint})(Input);
+export default connect(mapStateToProps, {addPoint})(Form);

@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import registerServiceWorker from './registerServiceWorker';
 import {createStore} from 'redux';
-import middleware from './middlewares/index'
-import reducer from './reducers/index';
 import {Provider} from 'react-redux';
+import middleware from './middlewares/index';
+import reducer from './reducers/index';
 import App from './components/App';
 
 const store = createStore(reducer, {}, middleware);
-
-//dev only
-window.store = store;
 
 ReactDOM.render(
 	<Provider store = {store}> 
@@ -17,4 +15,6 @@ ReactDOM.render(
 	</Provider>, 
 	document.getElementById('root')
 );
+
+registerServiceWorker();
 

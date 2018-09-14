@@ -13,23 +13,23 @@ export const deletePoint = (id) => {
 	}	
 };
 
-export const reorderPoint = ({oldIndex, newIndex}) => { 
+export const reorderPoint = (oldIndex, newIndex) => { 
 	return { 
 		type: 'REORDER_POINT',
 		payload: {oldIndex, newIndex}
 	}	
 };
 
-export const updatePoint = (id, coords) => {
+export const updatePointCoords = (id, coords) => {
 	return {
-		type: 'UPDATE_POINT',
+		type: 'UPDATE_POINT_COORDS',
 		payload: {id, coords}
 	}
 };
 
-export const getMapCenterCoords = (coords) => {
+export const setMapCenterCoords = (coords) => {
 	return {
-		type: 'GET_MAP_CENTER_COORDS',
+		type: 'SET_MAP_CENTER_COORDS',
 		payload: coords
 	}
 };

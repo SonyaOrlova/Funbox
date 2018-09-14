@@ -2,16 +2,20 @@ import React, {Component} from 'react';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {reorderPoint} from '../actions/index';
-import Point from './Point';
+import {deletePoint, reorderPoint} from '../actions/index';
 
-class List extends Component {
+export class List extends Component {
 	static propTypes = {
 		points: PropTypes.array.isRequired,
+		deletePoint: PropTypes.func,
 		reorderPoint: PropTypes.func
 	}
 
-	onSortEnd = (oldIndex, newIndex) => {
+	onDeleteBtnClick = (id) => {
+		this.props.deletePoint(id);
+	}
+
+	onDragEnd = ({oldIndex, newIndex}) => {
 		this.props.reorderPoint(oldIndex, newIndex);
 	}
 
@@ -19,16 +23,15 @@ class List extends Component {
 		const {points} = this.props;
 
 		const SortableItem = SortableElement(({point}) =>
-			<Point
-				point = {point}
-			/>
-			);
-
-		const SortableList = SortableContainer(({items}) => 
-			<ul className = 'list'>
-				{items}
-			</ul>
-			);
+			<li className = 'item'>
+				<p className = 'item__name'>{point.name}</p>
+				<button 
+					className = 'item__delete' 
+					type = 'button' 
+					onClick = {() => this.onDeleteBtnClick(point.id)}
+				>Delete</button>
+			</li>
+		);
 
 		const items = [...points].map((point, index) => 
 			<SortableItem 
@@ -36,12 +39,18 @@ class List extends Component {
 				index = {index}
 				point = {point}
 			/>
-			);
+		);
+
+		const SortableList = SortableContainer(({items}) => 
+			<ul className = 'list'>
+				{items}
+			</ul>
+		);
 
 		return (
 			<SortableList 
 				items = {items} 
-				onSortEnd = {this.onSortEnd} 
+				onSortEnd = {this.onDragEnd} 
 			/>
 		);
 	}
@@ -53,4 +62,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, {reorderPoint})(List);
+export default connect(mapStateToProps, {deletePoint, reorderPoint})(List);

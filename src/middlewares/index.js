@@ -1,5 +1,5 @@
 import {applyMiddleware} from 'redux';
-import newId from '../utils/newId';
+import newId from '../helpers/newId';
 
 const setPointId = store => next => action => {
 

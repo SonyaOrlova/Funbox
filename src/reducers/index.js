@@ -1,4 +1,4 @@
-import {DEFAULT_MAP_CENTER_COORDS} from '../constants';
+import {DEFAULT_MAP_CENTER_COORDS} from '../helpers/constants';
 import {combineReducers} from 'redux';
 import {arrayMove} from 'react-sortable-hoc';
 
@@ -7,8 +7,8 @@ const points = (state = [], action) => {
 
 	switch (type) {
 		case 'ADD_POINT':
-			const newPoint = payload;
-			return [...state, {...newPoint, id: uniqueId}]; 
+			const newPoint = {...payload, id: uniqueId};
+			return [...state, newPoint]; 
 
 		case 'DELETE_POINT':
 			const deletedPointId = payload;
@@ -19,7 +19,7 @@ const points = (state = [], action) => {
 			const newIndex = payload.newIndex;
 			return arrayMove([...state], oldIndex, newIndex);
 
-		case 'UPDATE_POINT':
+		case 'UPDATE_POINT_COORDS':
 			const updatedPointId = payload.id;
 			const newCoords = payload.coords;
 			return state.map(point => point.id === updatedPointId ? point = {...point, coords: newCoords} : point);
@@ -33,7 +33,7 @@ const mapCenterCoords = (state = DEFAULT_MAP_CENTER_COORDS, action) => {
 	const {type, payload} = action;
 
 	switch (type) {
-		case 'GET_MAP_CENTER_COORDS':
+		case 'SET_MAP_CENTER_COORDS':
 			const coords = payload;
 			return coords;
 
