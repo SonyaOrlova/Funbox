@@ -7,23 +7,23 @@ import {YaMap} from '../../components/YaMap';
 jest.mock('react-yandex-maps', () => ({
 	YMaps: ({children}) => <div> {children} </div>,
 	Map: ({children, onBoundsChange}) => 
-		<div 
-			className = 'yamap'
-			onDragEnd = {onBoundsChange}
-		> {children} </div>,
+	<div 
+	className = 'yamap'
+	onDragEnd = {onBoundsChange}
+	> {children} </div>,
 	Placemark: ({properties, geometry, onGeometryChange}) => (
 		<div
-			className = 'placemark'
-			coords = {geometry.coordinates}
-			balloon = {properties.balloonContent}
-			onDragEnd = {onGeometryChange}
+		className = 'placemark'
+		coords = {geometry.coordinates}
+		balloon = {properties.balloonContent}
+		onDragEnd = {onGeometryChange}
 		/>
-	),
+		),
 	Polyline: ({geometry}) => 
-		<div 
-			className = 'polyline'
-			coords = {geometry.coordinates}
-		></div>
+	<div 
+	className = 'polyline'
+	coords = {geometry.coordinates}
+	></div>
 }));
 
 describe('YANDEX MAP - test', () => {

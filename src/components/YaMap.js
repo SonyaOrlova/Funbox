@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {YMaps, Map, Placemark, Polyline} from 'react-yandex-maps';
 import {connect} from 'react-redux';
-import {setMapCenterCoords} from '../actions/index';
-import {updatePointCoords} from '../actions/index';
+import {updatePointCoords, setMapCenterCoords} from '../actions/index';
 
 export class YaMap extends Component {
 	static propTypes = {
@@ -78,4 +77,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {setMapCenterCoords, updatePointCoords})(YaMap);
+export default connect(mapStateToProps, {updatePointCoords, setMapCenterCoords})(YaMap);
