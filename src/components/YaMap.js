@@ -55,7 +55,6 @@ export class YaMap extends Component {
           <Map 
             width = {'100%'} height = {'100%'}
             state = {mapState} 
-            // instanceRef = {elem => this.myMap = elem}
             onBoundsChange = {evt => {
               const newMapCenterCoords = evt.originalEvent.target.getCenter();
               this.onMapDrag(newMapCenterCoords)
