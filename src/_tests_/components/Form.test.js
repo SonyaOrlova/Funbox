@@ -27,7 +27,7 @@ describe('FORM - test', () => {
 		expect(component.state().pointName).toEqual(name);
 	});
 
-	it ('should calls action for adding point when submitted', () => {
+	it ('should call action for adding point when submitted', () => {
 		const name = 'b'; 
 
 		form.simulate('submit');

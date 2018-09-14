@@ -1,4 +1,3 @@
-// import {DEFAULT_MAP_CENTER_COORDS} from '../helpers/constants';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {YMaps, Map, Placemark, Polyline} from 'react-yandex-maps';
@@ -21,23 +20,6 @@ export class YaMap extends Component {
   onPlacemarkDrag = (id, newPointCoords) => {
     this.props.updatePointCoords(id, newPointCoords);
   }
-
-  // componentDidUpdate(prevProps) {
-  //   const {points} = this.props;
-  //   const prevPoints = prevProps.points;
-
-  //   if (points.length === 0 && prevPoints.length !== 0) {
-  //     this.myMap.setCenter(DEFAULT_MAP_CENTER_COORDS, 10, {duration: 500}); 
-  //   } // default map center when there are no placemarks
-
-  //   if (points.length === 1 && prevPoints.length !== points.length) {
-  //     this.myMap.setCenter(points[0].coords, 10, {duration: 500});
-  //   } // map auto-positioning for 1 placemark
-
-  //   if (points.length > 1 && prevPoints.length !== points.length) {
-  //     this.myMap.setBounds(this.myMap.geoObjects.getBounds(), {duration: 500, checkZoomRange:true});
-  //   } // map auto-positioning for several placemarks
-  // }
 
   render() {
     const {points, mapCenterCoords} = this.props;

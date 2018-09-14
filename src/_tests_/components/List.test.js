@@ -20,7 +20,7 @@ describe('LIST - test', () => {
 
 	const component = mount(<List {...props} />);
 
-	it ('should calls action for deleting point when clicked', () => {
+	it ('should call action for deleting point when clicked', () => {
 		const button = component.find('button').first();
 
 		button.simulate('click');
@@ -28,7 +28,7 @@ describe('LIST - test', () => {
 		expect(mockDeletePoint).toHaveBeenCalledWith('id1');
 	});
 
-	it ('should calls action for reordering points when dragged', () => {
+	it ('should call action for reordering points when dragged', () => {
 		const container = component.find('.container');
 
 		container.simulate('dragend');

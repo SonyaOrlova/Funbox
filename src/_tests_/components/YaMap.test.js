@@ -40,7 +40,7 @@ describe('YANDEX MAP - test', () => {
 
 	const component = mount(<YaMap {...props} />);
 
-	it ('should calls action for setting new map center coords when map dragged', () => {
+	it ('should call action for setting new map center coords when map dragged', () => {
 		const map = component.find('.yamap');
 		const newMapCenterCoords = [55.55, 66.66];
 
@@ -55,13 +55,13 @@ describe('YANDEX MAP - test', () => {
 		expect(mockSetMapCenterCoords).toHaveBeenCalledWith(newMapCenterCoords);
 	});
 
-	it ('should renders placemarks', () => {
+	it ('should render placemarks', () => {
 		const placemarks = component.find('.placemark');
 
 		expect(placemarks.length).toEqual(points.length);
 	});
 
-	it ('should calls action for updating point coords when placemark dragged', () => {
+	it ('should call action for updating point coords when placemark dragged', () => {
 		const placemark = component.find('.placemark').first();
 		const newPlacemarkCoords = [77.77, 66.66];
 
@@ -78,7 +78,7 @@ describe('YANDEX MAP - test', () => {
 		expect(mockUpdatePointCoords).toHaveBeenCalledWith('id1', newPlacemarkCoords);
 	});
 
-	it ('should renders polyline', () => {
+	it ('should render polyline', () => {
 		const polyline = component.find('.polyline');
 
 		expect(polyline.length).toEqual(1);

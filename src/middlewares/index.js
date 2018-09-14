@@ -1,14 +1,15 @@
 import {applyMiddleware} from 'redux';
 import newId from '../helpers/newId';
 
-const setPointId = store => next => action => {
+export const setId = store => next => action => {
 
 	action.generateId ? 
 	next({
-		...action,
+		type: action.type,
+		payload: action.payload,
 		uniqueId: newId()
 	}) :
 	next(action)
 };
 
-export default applyMiddleware(setPointId);
+export default applyMiddleware(setId);
