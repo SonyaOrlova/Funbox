@@ -2,6 +2,8 @@ import {DEFAULT_MAP_CENTER_COORDS} from '../helpers/constants';
 import {combineReducers} from 'redux';
 import {arrayMove} from 'react-sortable-hoc';
 
+console.log('hello world sss');
+
 const points = (state = [], action) => {
 	const {type, payload, uniqueId} = action; // gets uniqueId from the middleware
 
